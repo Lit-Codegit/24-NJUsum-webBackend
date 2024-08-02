@@ -12,7 +12,7 @@ export class LoginController {
     loginService: LoginService;
 
     @Post('/login')
-    async login(@Body() body: LoginRequestBody): Promise<{ success: boolean; message: string }> {
+    async login(@Body() body: LoginRequestBody): Promise<{ success: boolean; message: string; username: string }> {
         
         const result = await this.loginService.login(body);
 

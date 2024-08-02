@@ -3,7 +3,7 @@ import { LoginRequestBody } from '../interface';
 import * as fs from 'fs';
 @Provide()
 export class LoginService {
-    async login(body: LoginRequestBody): Promise<{ success: boolean; message: string }> {
+    async login(body: LoginRequestBody): Promise<{ success: boolean; message: string; username:string }> {
 
         const { username, passwd } = body;
         const users = JSON.parse(fs.readFileSync('./src/users.json', 'utf-8'));
@@ -12,12 +12,14 @@ export class LoginService {
         if (userFind) {
             return {
                 success: true,
-                message: 'login'
+                message: 'login',
+                username: userFind
             };
         } else {
             return {
                 success: false,
-                message: 'failed'
+                message: 'failed',
+                username: 'error'
             };
         }
     }

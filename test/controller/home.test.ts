@@ -12,7 +12,7 @@ describe('test/controller/home.test.ts', () => {
 
     // use expect by jest
     expect(result.status).toBe(200);
-    expect(result.text).toBe('Hello Midwayjs!');
+    expect(result.text).toBe('Hi, 欢迎使用异世界通信部');
 
     // close app
     await close(app);

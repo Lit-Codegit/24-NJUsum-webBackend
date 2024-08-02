@@ -9,7 +9,3 @@ export interface LoginRequestBody {
   passwd: string;
 }
 
-export interface Circle{
-  circle_name: string;
-  // 图片?
-}

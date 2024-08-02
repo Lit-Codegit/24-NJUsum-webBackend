@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "dev",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: build",
+			"detail": "cross-env NODE_ENV=local mwtsc --watch --run @midwayjs/mock/app.js"
+		}
+	]
+}

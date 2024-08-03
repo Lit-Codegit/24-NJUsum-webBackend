@@ -9,3 +9,8 @@ export interface LoginRequestBody {
   passwd: string;
 }
 
+export interface CircleRequestBody{
+  // circle_id: number;
+  circle_name: string;
+  // active_users: string[];
+}

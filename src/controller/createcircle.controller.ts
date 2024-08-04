@@ -1,4 +1,4 @@
-import { Controller, Post, Provide, Files, Fields } from '@midwayjs/core';
+import { Controller, Post, Files, Fields } from '@midwayjs/core';
 // import { CircleRequestBody } from '../interface';
 import { join } from 'path';
 import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs';
@@ -13,7 +13,8 @@ export class CreateController {
     private baseImagePath = join(__dirname, '..', 'src', 'circles_data');
 
     @Post('/createcircle')
-    async createCircle(@Files() file,@Fields() fields): Promise<{ success: boolean; url?: string }> {
+    async createCircle(@Files() file, @Fields() fields): Promise<{ success: boolean; url?: string }> {
+        console.log(file);
         const { circle_name } = fields;
 
         // 检查circle_name是否已存在

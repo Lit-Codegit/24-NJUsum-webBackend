@@ -1,0 +1,10 @@
+{
+    "postId": "1",
+    "owner": "test",
+    "title": "title",
+    "content": "test",
+    "images": [
+        "图片1的存放路径",
+        "图片2的存放路径"
+    ]
+}

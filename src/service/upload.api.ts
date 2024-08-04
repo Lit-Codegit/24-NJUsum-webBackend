@@ -5,8 +5,8 @@ import {
 } from '@midwayjs/hooks-upload';
 
 export default Api(
-    Upload('/api/upload/:id'),
-    async (id) => {
+    Upload('/api/upload/'),
+    async () => {
         const files = useFiles();
         return files;
     }

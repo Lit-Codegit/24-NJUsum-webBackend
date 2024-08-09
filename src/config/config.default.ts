@@ -23,7 +23,7 @@ export default {
     // base64: boolean，设置原始body是否是base64格式，默认为false，一般用于腾讯云的兼容
     base64: false,
     // 仅在匹配路径到 /api/upload 的时候去解析 body 中的文件信息
-    match: /\/api\/upload/,
+    match: /\/createcircle/,
   },
   webSocket: {},
   cors: {

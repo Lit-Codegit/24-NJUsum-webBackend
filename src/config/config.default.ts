@@ -28,5 +28,9 @@ export default {
   webSocket: {},
   cors: {
     origin: "*"
-  }
+  },
+  // static: {
+  //   dir: join(__dirname, '..',  'circles_data'), // 静态资源目录
+  //   prefix: '/images/', // 访问静态资源的URL前缀!!!!
+  // },
 } as MidwayConfig;

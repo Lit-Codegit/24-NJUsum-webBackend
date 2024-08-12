@@ -17,6 +17,7 @@ export class APIController {
     return { success: true, message: 'OK', data: user };
   }
 
+
   @Get('/circles')
   async getCircles(ctx: Context) {
     const filePath = path.join('src', 'circles.json');
@@ -24,7 +25,11 @@ export class APIController {
     try {
       const fileContent = await fs.promises.readFile(filePath, 'utf8');
       const circles = JSON.parse(fileContent);
-      ctx.body = circles;
+      const circlesWithUrls = circles.map(circle => ({
+        ...circle,
+        icon_url: 'http://127.0.0.1:7002'+`/circles_pub/${circle.circle_name}/${circle.icon_url}` // 用静态资源配置
+      }));
+      ctx.body = circlesWithUrls;
     } catch (error) {
       ctx.status = 500;
       ctx.body = { message: 'Error reading circles data' };

@@ -10,6 +10,7 @@ import { join } from 'path';
 // import { DefaultErrorFilter } from './filter/default.filter';
 // import { NotFoundFilter } from './filter/notfound.filter';
 import { ReportMiddleware } from './middleware/report.middleware';
+import * as staticCache from 'koa-static-cache';
 
 @Configuration({
   imports: [
@@ -34,5 +35,11 @@ export class MainConfiguration {
     this.app.useMiddleware([ReportMiddleware]);
     // add filter
     // this.app.useFilter([NotFoundFilter, DefaultErrorFilter]);
+    this.app.use(
+      staticCache({
+        prefix: '/circles_pub/',
+        dir: join(this.app.getAppDir(), 'src','circles_data'),
+      })
+    );
   }
 }

@@ -1,5 +1,4 @@
 import { Controller, Post, Files, Fields } from '@midwayjs/core';
-// import { CircleRequestBody } from '../interface';
 import { join } from 'path';
 import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs';
 import { Circle } from '../interface';
@@ -63,12 +62,13 @@ export class CreateController {
                 // 提取原始文件名的后缀
                 const extension = file.filename.slice(file.filename.lastIndexOf('.'));
                 // 保存文件
-                const filePath = join(circleDir, 'circle_icon_' + circleName + extension);
+                const fileName = 'circle_icon_' + circleName + extension;
+                const filePath = join(circleDir, fileName);
                 // file.data 是文件内容的字符串形式，如果是 Buffer，直接 file.data
                 writeFileSync(filePath, readFileSync(file.data));
 
-                // re图片绝对路径
-                savedFilePaths.push(filePath);
+                // re图片名字
+                savedFilePaths.push(fileName);
             }
 
             return savedFilePaths;
@@ -88,7 +88,7 @@ export class CreateController {
         let numOfCircles = circles.length;
         circles[numOfCircles] = { 
             circle_id: numOfCircles,
-            icon_name: imageUrl,
+            icon_name:imageUrl,
             circle_name:circleName,
             active_users: [],
             posts_cnt:0

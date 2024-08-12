@@ -1,8 +1,8 @@
 {
-    "postId": "1",
+    "post_id": "1",
     "owner": "test",
     "title": "title",
-    "content": "test",
+    "content": "test-this is content",
     "images": [
         "图片存放路径",
         ""

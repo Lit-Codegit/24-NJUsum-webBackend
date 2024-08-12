@@ -22,3 +22,11 @@ export interface Circle {
   active_users: Array<{ name: string; point: string }>;
   posts_cnt: number;
 }
+
+export interface Post{
+  post_id: string;
+  owner: string;
+  title: string;
+  content: string;
+  images: string[];
+}

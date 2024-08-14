@@ -1,8 +1,9 @@
-import { Inject, Controller, Get, Query, Param } from '@midwayjs/core';
+import { Inject, Controller, Get, Post, Body, Query, Param } from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
 import { UserService } from '../service/user.service';
 import * as fs from 'fs'
 import * as path from 'path'
+import { readFileSync, writeFileSync } from 'fs';
 @Controller('/api')
 export class APIController {
   @Inject()
@@ -17,7 +18,7 @@ export class APIController {
     return { success: true, message: 'OK', data: user };
   }
 
-
+// 获取兴趣圈全列表
   @Get('/circles')
   async getCircles(ctx: Context) {
     const filePath = path.join('src', 'circles.json');
@@ -36,7 +37,7 @@ export class APIController {
     }
   }
 
-
+// 获取某个兴趣圈
   @Get('/circle/:id')
   async getCirclePosts(@Param() id) {
     const circle_id = id.id;
@@ -78,10 +79,10 @@ export class APIController {
       const posts = postsContents
         .filter(content => content !== null) // 过滤null值
         .map(content => JSON.parse(content))
-        .map(post => ({
-          ...post,
-          images: post.images.map(image => `http://127.0.0.1:7002/circles_pub/${circle_id}/${post.post_id+'_pic'}`) // 添加图片URL前缀
-        }));
+        // .map(post => ({
+        //   ...post,
+        //   images: post.images.map(() => `http://127.0.0.1:7002/circles_pub/${circle_id}/pic_${post.post_id}`) // 添加图片URL前缀
+        // }));
 
       this.ctx.body = posts; // 返回帖子数组
     } catch (error) {
@@ -89,5 +90,68 @@ export class APIController {
       this.ctx.body = { message: 'Error reading directory', error: error.message };
     }
   }
+
+
+  @Get('/circle/:circle_id/post/:post_id')
+  async getPostDetail() {
+    try {
+      const { circle_id, post_id } = this.ctx.params; // 解构出 circle_id 和 post_id
+
+      const circlesJsonPath = path.join(__dirname, '..', '..', 'src', 'circles.json');
+      const circles = JSON.parse(readFileSync(circlesJsonPath, 'utf8'));
+
+      const circle_name = (circles.find(circle => circle.circle_id === Number(circle_id))).circle_name;
+
+      const filePath = path.join(__dirname, '..', '..', 'src', `circles_data/${circle_name}/post_${post_id}.json`);
+
+      const post = JSON.parse(readFileSync(filePath, 'utf8'));
+      return { success: true, data: post };
+    } catch (error) {
+      return { success: false, message: 'Post not found' };
+    }
+  }
+
+  @Post('/circle/:circle_id/post/:post_id/like')
+  async likePost() {
+    try {
+      const { circle_id, post_id } = this.ctx.params; 
+      const circlesJsonPath = path.join(__dirname,'..', '..','src', 'circles.json');
+      const circles = JSON.parse(readFileSync(circlesJsonPath, 'utf8'));
+
+      const circle_name = (circles.find(circle => circle.circle_id === Number(circle_id))).circle_name;
+
+      const filePath = path.join(__dirname, '..','..','src', `circles_data/${circle_name}/post_${post_id}.json`);
+
+      const post = JSON.parse(readFileSync(filePath, 'utf8'));
+      post.thumbs += 1; // ...
+      // 可能是因为写入的是disc?
+      writeFileSync(filePath, JSON.stringify(post, null, 2), 'utf8');
+      return { success: true, data: post.thumbs };
+    } catch (error) {
+      return { success: false, message: 'Failed to like post' };
+    }
+  }
+
+  @Post('/circle/:circle_id/post/:post_id/comment')
+  async submitComment(@Body('content') content:string) {
+    const { circle_id, post_id } = this.ctx.params; 
+    try {
+      const circlesJsonPath = path.join(__dirname, '..', '..', 'src', 'circles.json');
+      const circles = JSON.parse(readFileSync(circlesJsonPath, 'utf8'));
+
+      const circle_name = (circles.find(circle => circle.circle_id === Number(circle_id))).circle_name;
+
+      const filePath = path.join(__dirname, '..', '..', 'src', `circles_data/${circle_name}/post_${post_id}.json`);
+
+      const post = JSON.parse(readFileSync(filePath, 'utf8'));
+      post.comments.push( content ); // 加评论
+      writeFileSync(filePath, JSON.stringify(post, null, 2), 'utf8');
+      return { success: true, data: post.comments };
+    } catch (error) {
+      return { success: false, message: 'Failed to submit comment' };
+    }
+  }
+
 }
-  
+
+

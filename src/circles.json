@@ -6,11 +6,11 @@
     "active_users": [
       {
         "name": "test",
-        "point": "1"
+        "point": 1
       },
       {
         "name": "test0",
-        "point": "0"
+        "point": 0
       }
     ],
     "posts_cnt": 1
@@ -19,6 +19,18 @@
     "circle_id": 1,
     "icon_url": "circle_icon_2.jpg",
     "circle_name": "2",
+    "active_users": [
+      {
+        "name": "test",
+        "point": 1
+      }
+    ],
+    "posts_cnt": 1
+  },
+  {
+    "circle_id": 2,
+    "icon_url": "circle_icon_121.jpg",
+    "circle_name": "121",
     "active_users": [],
     "posts_cnt": 0
   }

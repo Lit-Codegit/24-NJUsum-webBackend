@@ -67,7 +67,7 @@ export class CreateController {
                 // file.data 是文件内容的字符串形式，如果是 Buffer，直接 file.data
                 writeFileSync(filePath, readFileSync(file.data));
 
-                // re图片名字
+                // re图片url
                 savedFilePaths.push(fileName);
             }
 
@@ -88,7 +88,7 @@ export class CreateController {
         let numOfCircles = circles.length;
         circles[numOfCircles] = { 
             circle_id: numOfCircles,
-            icon_name:imageUrl,
+            icon_url:imageUrl,
             circle_name:circleName,
             active_users: [],
             posts_cnt:0

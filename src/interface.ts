@@ -17,7 +17,7 @@ export interface CircleRequestBody{
 
 export interface Circle {
   circle_id: number;
-  icon_name: string;
+  icon_url: string;
   circle_name: string;
   active_users: Array<{ name: string; point: string }>;
   posts_cnt: number;
@@ -29,4 +29,6 @@ export interface Post{
   title: string;
   content: string;
   images: string[];
+  thumbs: number;
+  comments: string[];
 }

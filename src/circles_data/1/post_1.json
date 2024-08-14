@@ -1,10 +1,17 @@
 {
-    "post_id": "1",
-    "owner": "test",
-    "title": "title",
-    "content": "test-this is content",
-    "images": [
-        "图片存放路径",
-        ""
-    ]
+  "post_id": "1",
+  "owner": "test",
+  "title": "title",
+  "content": "test-this is content",
+  "images": [
+    "图片存放路径",
+    ""
+  ],
+  "thumbs": 3,
+  "comments": [
+    "11",
+    "test comment",
+    "121",
+    "12121"
+  ]
 }
